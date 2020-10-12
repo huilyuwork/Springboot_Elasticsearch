@@ -19,10 +19,12 @@ class SpringbootEsApplicationTests {
 	}
 	@Test
 	public void testEs(){
-		Iterable<EsBlog> all = blogRepository.findAll();
-		Iterator<EsBlog> iterator = all.iterator();
-		EsBlog next = iterator.next();
-		System.out.println("-------" + next.getTitle());
+		long count = blogRepository.count();
+		System.out.println("........."+ count);
+//		Iterable<EsBlog> all = blogRepository.findAll();
+//		Iterator<EsBlog> iterator = all.iterator();
+//		EsBlog next = iterator.next();
+//		System.out.println("-------" + next.getTitle());
 	}
 
 }

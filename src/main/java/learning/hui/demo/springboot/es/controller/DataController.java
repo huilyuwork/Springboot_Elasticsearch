@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 // because we use rest API, so this class will return a json format data, and add a restController
 @RestController
@@ -30,8 +32,8 @@ public class DataController {
     EsBlogRepository esBlogRepository;
 
     // spring mvc will return the value as a json format
-    @GetMapping("/blog")
-    public Object blog(){
+    @GetMapping("/blogs")
+    public Object blogs(){
         List<MysqlBlog> mysqlBlogList = mysqlBlogRepository.queryAll();
         return mysqlBlogList;
     }
@@ -57,13 +59,19 @@ public class DataController {
             List<EsBlog> content = search.getContent();
             map.put("list", content);
         }else {
-            return "I don't konw what you want to do";
+            return "I don't know what you want to do";
         }
 
         watch.stop();
         long totalTimeMillis =  watch.getTotalTimeMillis();
         map.put("duration", totalTimeMillis);
         return map;
+    }
+    @GetMapping("/blog/{id}")
+    public Object blog(@PathVariable("id") Integer id){
+        Optional<MysqlBlog> byId = mysqlBlogRepository.findById(id);
+        MysqlBlog blog = byId.get();
+        return blog;
     }
 
     @Data

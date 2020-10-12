@@ -14,7 +14,7 @@ import java.util.Date;
  */
 
 @Data
-@Document(indexName = "blog", useServerConfiguration = true,createIndex = false)
+@Document(indexName = "blog", type = "_doc", useServerConfiguration = true,createIndex = false)
 public class EsBlog {
     @Id
     private Integer id;
